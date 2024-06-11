@@ -1,0 +1,182 @@
+---
+title: "Homework 3"
+subtitle: "Autumn 2022"
+author: "Jaiden Atterbury"
+header-includes:
+    - \usepackage{setspace}\doublespacing
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* * * 
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Oct 26 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+1. (Shelley) Below are the last five lines of Shelley's poem *Ozymandias* 
+
+   ```{verbatim}
+   "My name is Ozymandias, king of kings:
+    Look on my works, ye Mighty, and despair!"
+    Nothing beside remains. Round the decay
+    Of that colossal wreck, boundless and bare
+    The lone and level sands stretch far away 
+   ```
+
+   Let $X$ denote the length of a word which is randomly selected from those lines. 
+
+a. Write the P.M.F. of $X$ in tabular form. 
+
+Since there are $36$ total words in the poem above, it follows that $|S| = 36$. Also, since the possible word lengths in the poem range from $2$ to $10$ words, we can say $\text{range}(X) = \{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \}$, with this said the PMF of $X$ is:
+
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|} \hline
+$x$ & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\ \hline
+$f(x)$ & 7/36 & 1/6 & 7/36 & 7/36 & 1/18 & 1/9 & 1/36 & 1/36 & 1/36 \\ \hline
+\end{tabular}
+    
+b. Make a probability histogram of the distribution in part a.
+
+```{r, message = FALSE, warning = FALSE}
+library(tidyverse)
+word_length <- data.frame(
+  x = c(2, 3, 4, 5, 6 , 7 ,8, 9, 10),
+  f = c(7/36, 1/6, 7/36, 7/36, 1/18, 1/9, 1/36, 1/36, 1/36)
+)
+
+ggplot(data = word_length, mapping = aes(x = x, y = f)) +
+  geom_col(
+    width = 1, alpha = 0.5,
+    fill = "blue", color = "black"
+  ) +
+  labs(
+    x = "X : Length of Randomly Chosen Word",
+    y = "Probability of X = x",
+    title = "PMF of Length of Randomly Chosen Word From Ozymandias"
+  ) +
+  scale_x_continuous(breaks = c(2, 3, 4, 5, 6 , 7 ,8, 9, 10))
+```
+
+c. Write the C.D.F. of $X$.
+
+\begin{align*} 
+F(x) &= P(X\leq x) \\ 
+&= \left \{ 
+\begin{array}{cc}
+                0 &\text{ if }  x < 2 \\ 
+      \frac{7}{36} &\text{ if } 2 \leq x < 3 \\ 
+      \frac{13}{36} &\text{ if } 3 \leq x < 4 \\ 
+      \frac{5}{9} &\text{ if } 4 \leq x < 5 \\ 
+      \frac{3}{4} &\text{ if } 5 \leq x < 6 \\ 
+      \frac{29}{36} &\text{ if } 6 \leq x < 7 \\ 
+      \frac{11}{12} &\text{ if } 7 \leq x < 8 \\ 
+      \frac{17}{18} &\text{ if } 8 \leq x < 9 \\ 
+      \frac{35}{36} &\text{ if } 9 \leq x < 10 \\ 
+                1 &\text{ if } x \geq 10
+\end{array} \right.
+\end{align*}
+
+\dotfill
+
+2. (Random walk) Suppose a particle moves 4 steps along the x-axis, starting at 0. At each step, it moves one unit to the right or to the left and is equally likely to go to the right as it is to the left. 
+
+a. Each possible outcome of this experiment is a 4-tuple. For example, the outcome $(L, L, L, L)$ represents the case when the particle moves one unit to the left at each of the four steps to end up at $x=-4$. The outcome $(R, L, R, L)$ represents the case when the particle moves one unit to the right, then one unit back to the left and so on ending up at $x=0$. How many elements are in the sample space? Be sure to calculate the number and also justify your answer.
+
+Using the multiplication principle for counting, this "job" consists of 4 seperate tasks performed in series. The $i^{th}$ of which can be done in 2 separate ways. Therefore, there are   $|S| = 2^{4} = 16$ elements in $S$.
+
+b. Let $E$ denote the event that the particle ends up at $x = 0$. Write the outcomes in $E$ and calculate $P(E)$. Be sure to justify your answer.
+
+The total amount of elements in event E, the event that the particle ends up at $x = 0$, is $6$. This event occurs when the number of left moves is equivalent to the number of right moves, which in this case would be $2$ left moves, and $2$ right moves.
+
+$E = \{ LRRL, LRLR, LLRR, RRLL, RLRL, RLLR \}.$
+
+Using the equally likely rule, we find that the $P(E) = \frac{|E|}{|S|} = \frac{6}{16} = \frac{3}{8} = 0.375$
+
+c. Let $X$ denote the position of the particle after 4 steps. Write its PMF in a tabular format. I have created a partial table for you to fill in. Each row should contain a possible value $x$, the outcomes that give the possible value and the probability. (*Hint: in part b you calculated $P(X = 0)$.*)
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{4.5in}|r|} \hline
+$x$ &  outcomes from $S$ & $f(x)$ \\ \hline
+-4 & $(L,L,L,L)$ & 1/16 \\ \hline
+-2 & $(L,L,L,R),(L,R,L,L),(L,L,R,L),(R,L,L,L)$ & 1/4 \\ \hline
+0 & $(L,R,R,L),(L,R,L,R),(L,L,R,R),(R,R,L,L),(R,L,R,L),(R,L,L,R)$ & 3/8 \\ \hline
+2 & $(R,R,R,L),(R,L,R,L),(R,R,L,R),(L,R,R,R)$ & 1/4 \\ \hline
+4 & $(R,R,R,R)$ & 1/16 \\ \hline
+\end{tabular}
+\end{table}
+
+d. How would the PMF change if the particle was twice as likely to move to the right as it is to the left? Create a table showing the new PMF. Also clearly state any assumption you need to make in order to re-calculate the probabilities. 
+
+Since a move to the right is twice as likely as it is to the left, $P(\text{Move to the right}) = P(R) = \frac{2}{3}$, thus $P(\text{Move to the left}) = 1 - \frac{2}{3} = \frac{1}{3}$. Thus, the re-calcualted probabilities will equal: $\\$
+
+$P(\text{4 Left}) = |E| * P(L)^4 = 1 * (\frac{1}{3})^4 = \frac{1}{81}$ $\\$
+$P(\text{3 Left, 1 Right}) = |E| * P(L)^3 * P(R)^1 = 4 * (\frac{1}{3})^3 * (\frac{2}{3})^1 = \frac{8}{81}$ $\\$
+$P(\text{2 Left, 2 Right}) = |E| * P(L)^2 * P(R)^2 = 6 * (\frac{1}{3})^2 * (\frac{2}{3})^2 = \frac{8}{27}$ $\\$
+$P(\text{3 Right, 1 Left}) = |E| * P(L)^1 * P(R)^3 = 4 * (\frac{1}{3})^1 * (\frac{2}{3})^3 = \frac{32}{81}$ $\\$
+$P(\text{4 Right}) = |E| * P(R)^4 = 1 * (\frac{1}{3})^4 = \frac{16}{81}$
+
+Where $|E|$ represents the number of elements in $S$ where $X = x$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|p{4.5in}|r|} \hline
+$x$ &  outcomes from $S$ & $f(x)$ \\ \hline
+-4 & $(L,L,L,L)$ & 1/81 \\ \hline
+-2 & $(L,L,L,R),(L,R,L,L),(L,L,R,L),(R,L,L,L)$ & 8/81 \\ \hline
+0 & $(L,R,R,L),(L,R,L,R),(L,L,R,R),(R,R,L,L),(R,L,R,L),(R,L,L,R)$ & 8/27 \\ \hline
+2 & $(R,R,R,L),(R,L,R,L),(R,R,L,R),(L,R,R,R)$ & 32/81 \\ \hline
+4 & $(R,R,R,R)$ & 16/81 \\ \hline
+\end{tabular}
+\end{table}
+
+\dotfill
+
+3. (CDF) Suppose the random variable $X$ has the CDF:
+\begin{align*}
+F(x) &= P(X \leq x), \\
+     &= \left\{ \begin{array}{cc}
+                      0 & x < 0, \\ \\
+            \frac{1}{3} & 0 \leq x < \frac{2}{5}, \\ \\
+            \frac{3}{4} & \frac{2}{5} \leq x  < \frac{4}{5}, \\ \\
+                      1 & \frac{4}{5} \leq x. \end{array} \right.
+\end{align*}
+
+   Find $P(\frac{1}{4} < X < \frac{3}{4})$. Show your work.
+   
+\begin{align}
+P(\frac{1}{4} < X < \frac{3}{4}) &= P(X > \frac{1}{4} \cap X < \frac{3}{4}) \\
+&= P(X = \frac{2}{5}) \\
+&= f(\frac{2}{5}) \\
+&= \frac{3}{4} - \frac{1}{3} \\
+&= \frac{5}{12}
+\end{align}
+
+We get from line (1) to line (2) because the only value of the random variable $X$ that falls into the range $\frac{1}{3} < X < \frac{3}{4}$ is $\frac{2}{5}$, by calculating the PMF of $X = \frac{2}{5}$ we find that its probability is $\frac{5}{12}$.
+
+\dotfill
+
+4. (Transformation) Suppose $X$ is a discrete uniform random variable on the integers $-n, -n + 1, -n +2, \dots, 0, 1, 2,\dots, n$, that is, 
+$$f(x) = P(X = x) = \frac{1}{2n + 1}, \ \ \ x = -n, -n+1, -n+2, \dots,-1, 0,1,2,\dots,n - 1, n.$$
+
+   Write the PMF of $Y = |X|$. Be sure to offer some explanation for your work.
+   
+If $Y = |X|$, then the possible values for $Y$ are $y = |x| = 0, 1, 2, \dots, n-1, n$. However, notice that elements $1$ through $n$ occur twice, since $|n|$ and $|-n|$ both yield the result $n$, but the element $0$ only occurs once. Since elements $1$ to $n$ occur twice and $0$ only occurs once, we can say that each individual element $1$ through $n$ is twice as likely to occur as element $0$. Since there are $n + 1$ unique values of $Y$ it follows that the PMF of $Y$ is:
+
+\begin{align*}
+f(y) &= P(Y = y), \\
+     &= \left\{ \begin{array}{cc}
+                      \frac{2}{2n+1} & \text{if} \: y = 1, 2, \dots, n \\ \\
+            \frac{1}{2n+1} & \text{if} \: y = 0. \end{array} \right.
+\end{align*}

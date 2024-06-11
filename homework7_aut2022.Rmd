@@ -1,0 +1,150 @@
+---
+title: "Homework 7"
+subtitle: "Autumn 2022"
+author: "Jaiden Atterbury"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Nov 23 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+
+* * *
+
+
+1. A tool-and-die company makes castings for steel stress-monitoring gauges. Their annual profit $Q$ is a function of demand $X$, given by 
+$$t(X) = 1 - exp (-2 X).$$
+   
+   The demand $X$ has the PDF
+$$f(x) = 6 e^{-6x} \ \ \ x > 0.$$
+
+a. Interpret the number "6" in the PDF of $X$. This means, describe in your own words what this tells you (in context) about the demand $X$. 
+
+**What 6 Tells Us About The Demand X:** $\\$
+Since the demand $X$ has the PDF $f(x) = 6 e^{-6x} \ x > 0,$ this suggests that $X \sim Exp(\lambda = 6).$ Where $\lambda$ represents the expected number of occurrences of an event during a specified observation period. In this specific exponential distribution, $\lambda = 6$ and the observation period is 1 year. Therefore, in the context of a tool-and-die company the number 6 in the PDF of $X$ tells us that the expected demand of castings for steel stress monitoring gauges is 6 units of castings per year. 
+
+b. Find $E\left[ t(X) \right]$. State any rules you use and show your work clearly.
+
+**Finding E[t(X)]:** 
+\begin{align*}
+E[t(X)] &= \int\limits_{-\infty}^{\infty} t(x) \cdot f(x) dx \quad \text{(Lemma 12.2)} \\
+&= \int\limits_{0}^{\infty} t(x) \cdot f(x) dx \quad \text{(Since $x > 0$)} \\
+&= \int\limits_{0}^{\infty} (1 - e^{-2x}) (6e^{-6x}) dx \\
+&= \int\limits_{0}^{\infty} 6e^{-6x} - 6e^{-8x} dx \\
+&= 6\int\limits_{0}^{\infty} e^{-6x} dx - 6\int\limits_{0}^{\infty} e^{-8x} dx \\
+&= -\left[e^{-6x}\right]_0^\infty + \frac{3}{4}\left[e^{-8x}\right]_0^\infty \\
+&= - (0 - 1) + \frac{3}{4} (0 - 1) \\
+&= 1 - \frac{3}{4} \\
+&= \boxed{\frac{1}{4}}
+\end{align*}
+
+2. Suppose the duration of a phone call, $X$, can be described probabilistically by
+
+	 $$P(X > x) = ae^{-\lambda_1 x} + (1-a) e^{-\lambda_2 x}, \ 0 < x < \infty$$
+	   
+   	where $a$, $\lambda_1$ and $\lambda_2$ are constants, $0 < a < 1, \ \lambda_1, \lambda_2 > 0$. 
+a. Write the CDF of $X$ by filling in the question marks in align environment below. Justify your answers below.
+
+**Finding The CDF of X:** 
+\begin{align*}
+P(X > x) &= 1 - P(X \leq x) \\
+P(X \leq x) &= 1 - P(X > x) \\
+&= 1 - (ae^{-\lambda_1 x} + (1-a) e^{-\lambda_2 x}) \\
+&= 1 - ae^{-\lambda_1 x} - (1-a) e^{-\lambda_2 x}
+\end{align*}
+
+\begin{align*}
+F(x) &= P(X \leq x) \\
+&= \left\{ \begin{array}{cc} 
+                0 & x < 0\\
+                1 - ae^{-\lambda_1 x} - (1-a) e^{-\lambda_2 x} & x \geq 0.
+          \end{array} \right.
+\end{align*}
+    
+b. Find a PDF, $f(x)$,  for $X$. Show your work. (Don't forget to mention the support)
+
+**Finding a PDF for X:**
+\begin{align*}
+f(x) &= \frac{d}{dx}F(x) \\
+&= \frac{d}{dx}(1 - ae^{-\lambda_1 x} - (1-a) e^{-\lambda_2 x}) \\
+&= 0 + \lambda_1 a e^{-\lambda_1 x} + \lambda_2 (1-a) e^{-\lambda_2 x} \\
+&= \boxed{\lambda_1 a e^{-\lambda_1 x} + \lambda_2 (1-a) e^{-\lambda_2 x} , x \geq 0}
+\end{align*}
+
+c. Calculate the expected duration of the call. State the answer in a sentence that shows you understand the meaning of expected value. In other words, we are looking for more than "the expected value is xxx". 
+    
+**Calculating E[X]:**
+\begin{align*}
+E[X] &= \int\limits_{-\infty}^{\infty} x \cdot f(x) dx \quad \text{(Definition 12.1)} \\
+&= \int\limits_{0}^{\infty} x \cdot f(x) dx \quad \text{(Since $x \geq 0$)} \\
+&= \int\limits_{0}^{\infty} x \cdot (\lambda_1 a e^{-\lambda_1 x} + \lambda_2 (1-a) e^{-\lambda_2 x}) dx \\
+&= a \int\limits_{0}^{\infty} x \lambda_1 e^{-\lambda_1 x} dx + (1 - a) \int\limits_{0}^{\infty} x \lambda_2 e^{-\lambda_2 x} dx \\
+&= (a) (\frac{1}{\lambda_1}) + (1-a) (\frac{1}{\lambda_2}) \quad \text{(Lemma 12.1)} \\
+&= \frac{a}{\lambda_1} + \frac{(1 - a)}{\lambda_2} \\
+&= \boxed{\frac{a \lambda_2 + (1 - a) \lambda_1}{\lambda_1 \lambda_2}}
+\end{align*}
+
+**Interpretation:** $\\$
+Therefore, the expected duration of a phone call is $\frac{a \lambda_2 + (1 - a) \lambda_1}{\lambda_1 \lambda_2}$ minutes.
+
+d. By how much will the duration of a call typically vary from expected? Calculate the standard deviation $SD(X)$. (\emph{Hint:} begin by finding $$Var\left[X \right] = E\left[X^2 \right] - \mu^2$$ where $\mu$ is your answer to part c. )
+   
+    \emph{Hint: for parts c and d, you may use the results from Lemma 12.1 without proof but you have to provide complete citations to results you use. This means you cannot just say "from the result we saw in class". This is not how proofs are written. }
+    
+**Finding Var[X]:**
+\begin{align*}
+Var[X] &= E[X^2] - \mu^2 \\
+&= \int\limits_{-\infty}^{\infty} x^2 \cdot f(x) dx - \mu^2 \\
+&= \int\limits_{0}^{\infty} x^2 \cdot (\lambda_1 a e^{-\lambda_1 x} + \lambda_2 (1-a) e^{-\lambda_2 x}) dx - (\frac{a \lambda_2 + (1-a) \lambda_1}{\lambda_1 \lambda_2})^2 \\
+&= a\int\limits_{0}^{\infty} x^2 \lambda_1 e^{-\lambda_1 x} dx + (1-a) \int\limits_{0}^{\infty} x^2 \lambda_2 e^{-\lambda_2 x} dx - (\frac{a \lambda_2 + (1-a) \lambda_1}{\lambda_1 \lambda_2})^2
+\end{align*}
+
+To avoid confusion, we will solve each one of these parts individually: $\\$
+**Solving $a\int\limits_{0}^{\infty} x^2 \lambda_1 e^{-\lambda_1 x} dx$:**
+\begin{align*}
+&= a(\left[-x^2 e^{-\lambda_1 x}\right]_0^\infty + \frac{2}{\lambda_1} \int\limits_{0}^{\infty} x \lambda_1 e^{-\lambda_1} dx)  \quad \text{(Integration by parts)} \\
+&= a(0 + \frac{2}{\lambda_1} \cdot \frac{1}{\lambda_1}) \quad \text{(L'Hopitals Rule and Lemma 12.1)}\\
+&= \frac{2a}{(\lambda_1)^2}
+\end{align*}
+
+**Solving $(1-a) \int\limits_{0}^{\infty} x^2 \lambda_2 e^{-\lambda_2 x} dx$:**
+\begin{align*}
+&= (1-a)(\left[-x^2 e^{-\lambda_2 x}\right]_0^\infty + \frac{2}{\lambda_2} \int\limits_{0}^{\infty} x \lambda_2 e^{-\lambda_2} dx)  \quad \text{(Integration by parts)} \\
+&= (1-a)(0 + \frac{2}{\lambda_2} \cdot \frac{1}{\lambda_2}) \quad \text{(L'Hopitals Rule and Lemma 12.1)}\\
+&= \frac{2(1-a)}{(\lambda_2)^2}
+\end{align*}
+
+**Solving $(\frac{a \lambda_2 + (1-a) \lambda_1}{\lambda_1 \lambda_2})^2$:**
+\begin{align*}
+&= \frac{a^2 (\lambda_2)^2 + 2 a (1-a) \lambda_1 \lambda_2 + (1-a)^2 (\lambda_1)^2}{(\lambda_1)^2 (\lambda_2)^2}
+\end{align*}
+
+**Putting it All Together:**
+\begin{align*}
+Var[X] &= \frac{2a}{(\lambda_1)^2} + \frac{2(1-a)}{(\lambda_2)^2} - \frac{a^2 (\lambda_2)^2 + 2 a (1-a) \lambda_1 \lambda_2 + (1-a)^2 (\lambda_1)^2}{(\lambda_1)^2 (\lambda_2)^2} \\ \\
+&= \frac{2a(\lambda_2)^2 + 2(1-a)(\lambda_1)^2)}{(\lambda_1)^2 (\lambda_2)^2} - \frac{a^2 (\lambda_2)^2 + 2 a (1-a) \lambda_1 \lambda_2 + (1-a)^2 (\lambda_1)^2}{(\lambda_1)^2 (\lambda_2)^2} \\ \\
+&= \boxed{\frac{(2a-a^2)(\lambda_2)^2 - 2a(1-a) \lambda_1 \lambda_2 + (2(1-a) - (1-a)^2)(\lambda_1)^2 }{(\lambda_1)^2 (\lambda_2)^2}}
+\end{align*}
+
+**Finding SD[X]:**
+\begin{align*}
+SD[X] &= \sqrt{Var[X]} \\ \\
+&= \sqrt{\frac{(2a-a^2)(\lambda_2)^2 - 2a(1-a) \lambda_1 \lambda_2 + (2(1-a) - (1-a)^2) (\lambda_1)^2}{(\lambda_1)^2 (\lambda_2)^2}} \\ \\
+&= \boxed{\frac{\sqrt{(2a-a^2)(\lambda_2)^2 - 2a(1-a) \lambda_1 \lambda_2 + (2(1-a) - (1-a)^2) (\lambda_1)^2}}{\lambda_1 \lambda_2}}
+\end{align*}
+
+**Interpretation:** $\\$
+Therefore, the duration of a call typically varies from expected by $\frac{\sqrt{(2a-a^2)(\lambda_2)^2 - 2a(1-a) \lambda_1 \lambda_2 + (2(1-a) - (1-a)^2) (\lambda_1)^2}}{\lambda_1 \lambda_2}$ minutes.

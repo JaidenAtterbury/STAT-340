@@ -1,0 +1,76 @@
+---
+title: "Homework 1"
+subtitle: "Autumn 2022"
+author: "Jaiden Atterbury"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+* * * 
+
+### Instructions
+
+- This homework is due in Gradescope on Wednesday Oct 12 by midnight PST.
+
+- Please answer the following questions in the order in which they are posed. 
+
+- Don't forget to knit the document frequently to make sure there are no compilation errors. 
+
+- When you are done, download the PDF file as instructed in section and submit it in Gradescope. 
+
+* * *
+
+
+### Exercises 
+
+1. The	crew	of	Apollo	17	consisted	of	two	pilots	and	one	geologist.	Suppose	that	 NASA	had	actually	trained	three	pilots	and	two	geologists.	How	many	possible	Apollo 17 crews	could	have	been	formed	
+
+    a. 	if	the	two	pilot	positions	have	identical	duties? $\\$$\\$
+**Solution:** Since each possible crew doesn't require us to distinguish the roles of the two pilots we do not need to worry about the order of the pilots when making our possible crews. This means that we can find the total number of possible crews through multiplying two combinations, one for the pilots, and one for the geologists. The formula to calculate this is the combination formula $n \choose k$ = $\frac{n!}{k!(n-k)!}$. In this case the number of unique combinations of pilots is equal to $3 \choose 2$ = $\frac{3!}{2!(3-2)!}$ = $3$, and the total number of unique combinations of geologists is $2 \choose 1$ = $\frac{2!}{1!(2-1)!}$ = $2$. For the total amount of possible crews we will multiply these two numbers, together: $3 \choose 2$ * $2 \choose 1$ = $6$ total crew possibilities.
+    $\\$$\\$
+    $\textbf{Sample Space For \{2 Pilots, 1 Geologist\}:}$
+    \begin{align*}
+    S = \hspace{0.1cm} & [(P_1, P_2, G_1), (P_1, P_2, G_2), (P_1, P_3, G_1), (P_1, P_3, G_2), \\
+    & (P_2, P_3, G_1), (P_2, P_3, G_2)] \\
+    \end{align*}
+    
+    b. if	there	is	a	pilot	and	a	co-pilot? $\\$$\\$
+**Solution:** Since each possible crew requires us to distinguish the roles of each pilot we now need to worry about the order of the pilots, with one being the pilot and the other being the co-pilot. This means we can find the total number of possible crews through multiplying two permutations. The formula to calculate this is the permutation formula $n \choose r$ = $\frac{n!}{(n-r)!}$. In this case the number of unique permutations of pilots is equal to $3 \choose 2$ = $\frac{3!}{(3-2)!}$ = $6$, and the total number of unique permutations of geologists is still $2 \choose 1$ = $\frac{2!}{1!(2-1)!}$ = $2$. For the total amount of possible crews we will multiply these two numbers, $3 \choose 2$ * $2 \choose 1$ = $12$ total crew possibilities.
+    $\\$$\\$
+    $\textbf{Sample Space For \{1 Pilot, 1 Co-pilot, 1 Geologist\}:}$
+    \begin{align*}
+    S = \hspace{0.1cm} & [(P_1, P_2, G_1), (P_1, P_2, G_2), (P_1, P_3, G_1), (P_1, P_3, G_2), \\
+    & (P_2, P_1, G_1), (P_2, P_1, G_2), (P_2, P_3, G_1), (P_2, P_3, G_2), \\
+    & (P_3, P_1, G_1), (P_3, P_1, G_2), (P_3, P_2, G_1), (P_3, P_2, G_2),] \\
+    \end{align*}
+Write the sample space in each case. You may denote the three pilots as $P_1, P_2, P_3$ and the two geologists as $G_1, G_2$. So $(P_1, P_2, G_1)$ represents the outcome that pilots 1 and 2 and geologist 1 were selected.
+
+2.  For two events $A$ and $B$ with $P(A)=0.5$ and $P(B)=0.8$, what are the largest and smallest possible values for $P(A \cap B)$? 
+
+    *Hint:* you will need to use the Bonferroni inequality and also the subset inequality you learned in section.
+
+**Maximum:** To find the maximum value of $P(A \cap B)$ we need to consider the case where $A \subset B$. The subset inequality states that if $A \subset B$, then $P(A) \leq P(B)$. In this specific case, we are looking for the maximum probability of when A and B both occur, this occurs at the maximum probability of A since every part of A is also in B. The maximum value of $P(A \cap B)$ in this problem is $P(A \cap B) = P(A) = 0.5$.
+
+**Minimum:** To find the mimimum value of $P(A \cap B)$ we need to use Bonferroni's inequality which states: $P(A \cap B) \geq P(A) + P(B) - 1$. This will give us a minimum since the inequality itself comes from Theorem 2.2 which states: $P(A \cup B) = P(A) + P(B) - P(A \cap B)$. In the case of Bonferroni's inequality we are taking $P(A \cup B)$ to be it's maximum value of 1 making $P(A \cap B)$ a minimum. Thus, the minimum value of $P(A \cap B)$ is $P(A) + P(B) - 1 = 0.5 + 0.8 - 1 = 0.3$.
+
+**Solution:** Therefore $0.3 \leq P(A \cap B) \leq 0.5$.
+
+3.  If $P(A) = \frac{1}{3}$ and $P(B^c)=\frac{1}{4}$, can $A$ and $B$ be disjoint? Support your answer.
+
+**Solution:** In order to tell if $A$ and $B$ can be disjoint we need to determine if it is possible for $P(A \cap B) = 0$, as this is the definition of disjoint events. We start off by using part a of Theorem 2.1 to find $P(B)$ which states: $P(B^c) = 1 - P(B)$. Using algebraic manipulation we find that $P(B) = 1 - P(B^c) = 1 - \frac{1}{4} = \frac{3}{4}$. To find the minimum value of $P(A \cap B)$ we use Bonferroni's inequality like we did in Problem 2. Using the $P(A)$
+and $P(B)$ we found using the problem statement we find that $P(A \cap B) \geq \frac{1}{3} + \frac{3}{4} - 1 = \frac{11}{12} - 1 = \frac{1}{12}$. Since the bounds of Bonferroni's inequality doesn't include $0$, we conclude that $A$ and $B$ can't be disjoint events.
+
+4.  Three events $A$, $B$ and $C$ are defined in a sample space. Show that 
+$$P(A \cup B \cup C) \leq P(A) + P(B) + P(C).$$ 
+   
+    *Hint:* Define $E = B \cup C$ and apply the union bound to $P(A \cup E)$ first. Then apply the union bound again to $P(E)$. 
+    
+**Solution:** $\\$
+Let $E = B \cup C$. $\\$
+Then $P(A \cup B) \leq P(A) + P(E)$ (Union Bound). $\\$
+Since $E = B \cup C$, then $P(E) \leq P(B) + P(C)$ (Union Bound). $\\$
+Thus, $P(A \cup E) \leq P(A) + P(E) \leq P(A) + P(B) + P(C)$. $\\$
+Therefore, $P(A \cup B \cup C) \leq P(A) + P(B) + P(C)$. $\\$
